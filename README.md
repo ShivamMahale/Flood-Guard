@@ -106,3 +106,23 @@ flood-guard/
 ## Contact
 For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
+## Application Pages
+
+### Login Page
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/5b1ac25c-d5f1-4f1a-861c-ddea7be443f3) 
+
+### Home Page 
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/ce6f2610-bf52-4765-983e-b0a47a636719) 
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/375435dd-d43b-4b7c-816b-e86988eca932)
+
+
+### Contact Page
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/3d2d4882-41c6-4612-95ba-225937533954)
+
+
+#### Development of remaining pages is in progress............
+
