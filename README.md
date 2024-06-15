@@ -4,11 +4,11 @@ FloodGuard is a comprehensive flood prediction and early warning system built wi
 
 ## Features
 
-- User authentication (Signup and Login)
-- Home, About, and Contact pages
-- Contact form to collect user information
-- Data storage using MySQL
-- Modern UI using Streamlit
+- User authentication (**Signup and Login**)
+- **Home**, **About**, and **Contact** pages
+- **Contact form** to collect user information
+- Data storage using **MySQL**
+- Modern UI using **Streamlit**
 
 ## Installation
 
@@ -54,3 +54,54 @@ CREATE TABLE contacts (
     message TEXT
 );
 ```
+Update the MySQL connection details in contact_page.py:
+
+```sh
+def create_connection():
+    connection = None
+    try:
+        connection = mysql.connector.connect(
+            host='your_host',
+            user='your_username',
+            password='your_password',
+            database='flood_guard'
+        )
+        if connection.is_connected():
+            st.success("Connected to the database!")
+    except Error as e:
+        st.error(f"The error '{e}' occurred")
+    return connection
+```
+
+## Usage
+
+### Running the Application
+
+```sh
+streamlit run app.py
+```
+
+### Project Structure
+
+```sh
+flood-guard/
+├── contact_page.py
+├── app.py
+├── requirements.txt
+└── README.md
+```
+- **contact_page.py:** Contains the contact page and database interaction logic.
+- **main.py:** Main application file that handles user authentication and page navigation.
++ **requirements.txt:** List of required Python packages.
+* **README.md:** Project documentation.
+
+## Acknowledgements
+- Streamlit
+- MySQL
+- Pandas
+- NumPy
+- Altair
+
+## Contact
+For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
+
