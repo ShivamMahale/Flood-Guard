@@ -2,6 +2,7 @@ import streamlit as st
 import mysql.connector
 from mysql.connector import Error
 
+
 # Function to connect to MySQL database
 def create_connection():
     connection = None
@@ -16,6 +17,7 @@ def create_connection():
         st.error(f"The error '{e}' occurred")
     return connection
 
+
 # Function to insert contact information into the database
 def insert_contact(connection, name, email, message):
     cursor = connection.cursor()
@@ -24,6 +26,7 @@ def insert_contact(connection, name, email, message):
     cursor.execute(query, values)
     connection.commit()
     cursor.close()
+
 
 # Contact form
 def contact_page():
