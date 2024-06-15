@@ -33,3 +33,24 @@ python --version
 git clone https://github.com/bachannayak/flood-guard.git
 cd flood-guard
 ```
+### Install Dependencies
+
+```sh
+pip install -r requirements.txt
+```
+## Configuration
+
+### MySQL Database
+Ensure you have a MySQL database set up with the necessary table. You can create a database and table using the following SQL commands:
+```sh
+CREATE DATABASE flood_guard;
+USE flood_guard;
+```
+```sh
+CREATE TABLE contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    message TEXT
+);
+```
