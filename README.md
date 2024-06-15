@@ -90,8 +90,9 @@ flood-guard/
 ├── requirements.txt
 └── README.md
 ```
+
 - **contact_page.py:** Contains the contact page and database interaction logic.
-- **main.py:** Main application file that handles user authentication and page navigation.
+- **app.py:** Main application file that handles user authentication and page navigation.
 + **requirements.txt:** List of required Python packages.
 * **README.md:** Project documentation.
 
