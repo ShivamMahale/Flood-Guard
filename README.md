@@ -66,9 +66,9 @@ Update the MySQL connection details in db.py:
 
 ```sh
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',
+    'host': 'your_db_host_name',
+    'user': 'your_db_user_name',
+    'password': 'your_db_password',
     'database': 'flood_guard'
 }
 ```
