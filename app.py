@@ -64,8 +64,8 @@ def logout():
 # Function to render page content based on selection
 def render_page(page):
     if page == "Home":
-        from about_page import about_page
-        about_page()
+        from home_page import home_page
+        home_page()
     elif page == "About":
         from about_page import about_page
         about_page()

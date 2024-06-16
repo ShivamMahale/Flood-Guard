@@ -1,7 +1,9 @@
+from mysql.connector import Error
 import datetime
 import mysql.connector
 import streamlit as st
 import hashlib
+import pandas as pd
 import re
 
 # MySQL database connection details
@@ -77,3 +79,37 @@ def verify_password(stored_password, provided_password):
     """Verify a stored password against one provided by user."""
     return stored_password == hashlib.sha256(provided_password.encode()).hexdigest()
     
+# Function to fetch data from MySQL and convert to Pandas DataFrame
+def fetch_iot_output_data(query):
+    connection = get_db_connection()
+    if connection is not None and connection.is_connected():
+        try:
+            cursor = connection.cursor()
+            cursor.execute(query)
+            rows = cursor.fetchall()
+            columns = [desc[0] for desc in cursor.description]
+            df = pd.DataFrame(rows, columns=columns)
+            cursor.close()
+            connection.close()
+            return df
+        except Error as e:
+            print(f"The error '{e}' occurred")
+            return None
+        
+# Function to create sample data
+def get_geospatial_data():
+    data = {
+            'lat': [37.7749, 40.7128, 34.0522, 51.5074, 48.8566, 35.6895, 55.7558],
+            'lon': [-122.4194, -74.0060, -118.2437, -0.1276, 2.3522, 139.6917, 37.6173],
+            'location_name': ['San Francisco', 'New York City', 'Los Angeles', 'London', 'Paris', 'Tokyo', 'Moscow'],
+            'weather_info': [
+                'Sunny, 21°C', 
+                'Cloudy, 18°C', 
+                'Rainy, 15°C', 
+                'Foggy, 10°C', 
+                'Clear, 20°C',
+                'Humid, 25°C',  
+                'Snowy, -5°C'   
+            ]
+        }
+    return pd.DataFrame(data)
