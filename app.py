@@ -1,44 +1,55 @@
 import streamlit as st
-import hashlib
+import db
 
-# Helper functions to hash passwords and check them
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
 
-def check_password(password, hashed):
-    return hash_password(password) == hashed
-
-# Sample user database - In real-world applications, use a proper database
-user_db = {"Bachan": hash_password("admin123")}
 
 # Function to handle signup
 def signup():
     st.title("Welcome to FloodGuard")
     st.subheader("Your Comprehensive Flood Prediction and Early Warning System")
     st.subheader("Signup")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    email = st.text_input('Email', placeholder='Enter email')
+    username = st.text_input('Username', placeholder='Enter Username')
+    password = st.text_input("Password", placeholder='Enter password',type="password")
+
     if st.button("Signup", key="signup_button"):
-        if username in user_db:
-            st.warning("Username already exists. Please choose another one.")
+        if db.validate_email(email):
+            user = db.get_user(email)
+            if user is not None:
+                st.warning("Username already exists. Please choose another one.")
+            else:
+                if db.validate_username(username):
+                    if len(username) >= 2:
+                        if len(password) >= 6:
+                            hashed_password = db.hash_password(password)
+                            db.insert_user(email=email, username=username, password=hashed_password)
+                            st.success("User registered successfully! Please login.")
+                            st.session_state.signup = False
+                            st.session_state.logged_in = False
+                            st.rerun()  # Force rerun
+                        else:
+                            st.warning('Password should be at least 6 characters')
+                    else:
+                        st.warning('Username too short')
+                else:
+                    st.warning('Invalid characters in Username')
         else:
-            user_db[username] = hash_password(password)
-            st.success("User registered successfully! Please login.")
-            st.session_state.signup = False
-            st.session_state.logged_in = False
-            st.rerun()  # Force rerun
+            st.warning('Invalid email Address')
+        
+
 
 # Function to handle login
 def login():
     st.title("Welcome to FloodGuard")
     st.subheader("Your Comprehensive Flood Prediction and Early Warning System")
     st.subheader("Login")
-    username = st.text_input("Username",placeholder="Enter your username")
+    email = st.text_input("Email",placeholder="Enter your registered email id")
     password = st.text_input("Password", type="password",placeholder="Enter your password")
     if st.button("Login", key="login_button"):
-        if username in user_db and check_password(password, user_db[username]):
+        user = db.get_user(email)
+        if user and db.verify_password(user['password'],password):
             st.session_state.logged_in = True
-            st.session_state.username = username
+            st.session_state.username = user['username']
             st.rerun()  # Force rerun
         else:
             st.error("Invalid username or password")

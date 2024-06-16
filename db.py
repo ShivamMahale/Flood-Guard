@@ -24,13 +24,12 @@ def insert_user(email, username, password):
     :return User on successful creation otherwise error:
     """
     date_joined = datetime.datetime.now()
-    validated = False
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
         cursor.execute(
-            "INSERT INTO users (email, username, password, date_joined, validated) VALUES (%s, %s, %s, %s, %s)",
-            (email, username, password, date_joined, validated)
+            "INSERT INTO users (email, username, password, date_joined) VALUES (%s, %s, %s, %s)",
+            (email, username, password, date_joined)
         )
         conn.commit()
     except mysql.connector.Error as err:
@@ -81,7 +80,7 @@ def get_users():
 
 def validate_username(username):
     """Check if a username is valid upon sign-up."""
-    pattern = "^[a-z]*$"
+    pattern = "^[a-zA-Z0-9-_]*$"
     return bool(re.match(pattern, username))
 
 def validate_email(email):

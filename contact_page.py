@@ -1,21 +1,5 @@
 import streamlit as st
-import mysql.connector
-from mysql.connector import Error
-
-
-# Function to connect to MySQL database
-def create_connection():
-    connection = None
-    try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='root',
-            database='flood_guard'
-        )
-    except Error as e:
-        st.error(f"The error '{e}' occurred")
-    return connection
+from db import get_db_connection
 
 
 # Function to insert contact information into the database
@@ -39,7 +23,7 @@ def contact_page():
 
     if st.button("Submit"):
         if name and email and message:
-            connection = create_connection()
+            connection = get_db_connection()
             if connection:
                 insert_contact(connection, name, email, message)
                 st.success("Your message has been sent successfully!")
