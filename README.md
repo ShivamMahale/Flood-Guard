@@ -53,24 +53,24 @@ CREATE TABLE contacts (
     email VARCHAR(100),
     message TEXT
 );
+
+CREATE TABLE `users` (
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `date_joined` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`email`)
+)
 ```
-Update the MySQL connection details in contact_page.py:
+Update the MySQL connection details in db.py:
 
 ```sh
-def create_connection():
-    connection = None
-    try:
-        connection = mysql.connector.connect(
-            host='your_host',
-            user='your_username',
-            password='your_password',
-            database='flood_guard'
-        )
-        if connection.is_connected():
-            st.success("Connected to the database!")
-    except Error as e:
-        st.error(f"The error '{e}' occurred")
-    return connection
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'root',
+    'database': 'flood_guard'
+}
 ```
 
 ## Usage
