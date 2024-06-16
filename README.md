@@ -110,13 +110,24 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
 ### Login Page
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/5b1ac25c-d5f1-4f1a-861c-ddea7be443f3) 
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/2a198f5c-a404-4b8c-856d-52b0c4e501ff)
+
+### Sign-Up Page
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/f4f80544-cfdd-4497-a955-1b0a3c277bfe)
 
 ### Home Page 
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/ce6f2610-bf52-4765-983e-b0a47a636719) 
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/9142ea73-fb87-4e1e-b1a0-5e91943d3807)
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/375435dd-d43b-4b7c-816b-e86988eca932)
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/c3f9be52-25f0-4de6-8df6-27d29e3f7d80)
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/7ba9f11f-60cb-444d-8358-c3bca5310cd0)
+
+### About Page 
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/c078cee1-6373-4b98-a20a-07dc1a525e2e)
 
 
 ### Contact Page
