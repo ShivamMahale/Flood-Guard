@@ -1,7 +1,4 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import altair as alt
 
 def about_page():
     st.video("https://www.youtube.com/watch?v=HIFxkgfRy90")
@@ -32,24 +29,3 @@ def about_page():
 
     Don't wait for the next flood event to act. Sign up for FloodGuard now and take control of your flood preparedness journey. Together, we can build a safer and more resilient community.
     """)
-
-    # Add a sample visualization
-    st.header("Sample Visualization")
-    # Create sample dataframe
-    np.random.seed(0)
-    data = pd.DataFrame({
-        'Date': pd.date_range(start='2022-01-01', end='2022-12-31', freq='D'),
-        'Temperature': np.random.uniform(low=0, high=30, size=(365,))
-    })
-
-    # Create line chart using Altair
-    line_chart = alt.Chart(data).mark_line().encode(
-        x='Date',
-        y='Temperature',
-    ).properties(
-        width=600,
-        height=300
-    )
-
-    # Display line chart
-    st.altair_chart(line_chart, use_container_width=True)

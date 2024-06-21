@@ -1,12 +1,16 @@
 # FloodGuard: Flood Prediction and Early Warning System
 
-FloodGuard is a comprehensive flood prediction and early warning system built with Streamlit. This application allows users to sign up, log in, and access various pages including home, about, and contact. Users can submit contact information, which is stored in a MySQL database.
+FloodGuard is your ultimate solution for staying ahead of potential flood risks and ensuring the safety of your community. 
+With advanced prediction algorithms and real-time monitoring capabilities, FloodGuard provides accurate forecasts 
+and timely alerts to help you prepare and respond effectively to flood events. <br>
+This application allows users to sign up, log in, logout,and access various pages including home, about, predict and contact. Users can submit contact information, which is stored in a MySQL database.
 
 ## Features
 
 - User authentication (**Signup and Login**)
-- **Home**, **About**, and **Contact** pages
+- **Home**, **About**, **Predict** and **Contact** pages
 - **Contact form** to collect user information
+- **Logout** 
 - Data storage using **MySQL**
 - Modern UI using **Streamlit**
 
@@ -16,6 +20,7 @@ FloodGuard is a comprehensive flood prediction and early warning system built wi
 
 - Python 3.7 or higher
 - MySQL Server
+- VS Code IDE
 
 ### Install Python
 
@@ -42,6 +47,7 @@ pip install -r requirements.txt
 
 ### MySQL Database
 Ensure you have a MySQL database set up with the necessary table. You can create a database and table using the following SQL commands:
+
 ```sh
 CREATE DATABASE flood_guard;
 USE flood_guard;
@@ -60,7 +66,35 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `date_joined` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`email`)
-)
+);
+
+CREATE TABLE `iot_data` (
+  `id` double DEFAULT NULL,
+  `MonsoonIntensity` int DEFAULT NULL,
+  `TopographyDrainage` double DEFAULT NULL,
+  `RiverManagement` int DEFAULT NULL,
+  `Deforestation` int DEFAULT NULL,
+  `Urbanization` double DEFAULT NULL,
+  `ClimateChange` int DEFAULT NULL,
+  `DamsQuality` int DEFAULT NULL,
+  `Siltation` int DEFAULT NULL,
+  `AgriculturalPractices` int DEFAULT NULL,
+  `Encroachments` double DEFAULT NULL,
+  `IneffectiveDisasterPreparedness` int DEFAULT NULL,
+  `DrainageSystems` double DEFAULT NULL,
+  `CoastalVulnerability` int DEFAULT NULL,
+  `Landslides` double DEFAULT NULL,
+  `Watersheds` int DEFAULT NULL,
+  `DeterioratingInfrastructure` double DEFAULT NULL,
+  `PopulationScore` double DEFAULT NULL,
+  `WetlandLoss` int DEFAULT NULL,
+  `InadequatePlanning` double DEFAULT NULL,
+  `PoliticalFactors` int DEFAULT NULL,
+  `FloodProbability` double DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+);
+
+
 ```
 Update the MySQL connection details in db.py:
 
@@ -72,6 +106,8 @@ db_config = {
     'database': 'flood_guard'
 }
 ```
+### Dataset Import in DB
+import the **iot_data.csv** file present in path **/data/iot_data.csv** in db table created in above step named **iot_data** table.
 
 ## Usage
 
@@ -85,8 +121,18 @@ streamlit run app.py
 
 ```sh
 flood-guard/
-├── contact_page.py
+├── .streamlit/
+     ├── config.toml  
+├── data/
+     ├── test.csv
+     ├── train.csv
+      
+├── home_page.py
+├── about_page.py
+├── predict_page.py
 ├── app.py
+├── db.py
+├── contact_page.py
 ├── requirements.txt
 └── README.md
 ```

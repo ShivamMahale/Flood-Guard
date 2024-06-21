@@ -8,6 +8,21 @@ import pydeck as pdk
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Define a styling function
+def highlight_max(s):
+    '''
+    highlight the maximum in a Series yellow.
+    '''
+    is_max = s == s.max()
+    return ['background-color: yellow' if v else '' for v in is_max]
+
+def highlight_min(s):
+    '''
+    highlight the minimum in a Series lightblue.
+    '''
+    is_min = s == s.min()
+    return ['background-color: lightblue' if v else '' for v in is_min]
+
 def home_page():
     st.write("""
     FloodGuard is your ultimate solution for staying ahead of potential flood risks and ensuring the safety of your community. 
@@ -18,7 +33,7 @@ def home_page():
     # Add a daily report visualization
     st.subheader("Daily Report based upon IOT Data receiving from selected Area")
     # SQL query to fetch the first 10 records
-    query = "SELECT * FROM iot_data LIMIT 10"
+    query = "SELECT * FROM iot_data ORDER BY created_at DESC LIMIT 10"
     iot_op_df = db.fetch_iot_output_data(query)
     # Exclude a specific column from the DataFrame
     columns_to_exclude = ['created_at', 'id']
@@ -33,6 +48,18 @@ def home_page():
 
     st.subheader('Flood Probability Distribution')
 
+    # Create line chart using Altair
+    line_chart = alt.Chart(iot_op_df).mark_line().encode(
+        x='id',
+        y='FloodProbability',
+    ).properties(
+        width=600,
+        height=300
+    )
+
+    # Display line chart
+    st.altair_chart(line_chart, use_container_width=True)
+
     # Plotting using matplotlib and seaborn
     plt.figure(figsize=(10, 6))
     sns.histplot(iot_op_df['FloodProbability'], bins=20, kde=True)
@@ -42,6 +69,7 @@ def home_page():
 
     # Display the plot in Streamlit
     st.pyplot()
+
 
     # display plot of each column
     st.subheader('Analysis of Each Attribute')
