@@ -21,6 +21,7 @@ This application allows users to sign up, log in, logout,and access various page
 - Python 3.7 or higher
 - MySQL Server
 - VS Code IDE
+- [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/). Follow to install
 
 ### Install Python
 
@@ -69,7 +70,6 @@ CREATE TABLE `users` (
 );
 
 CREATE TABLE `iot_data` (
-  `id` double DEFAULT NULL,
   `MonsoonIntensity` int DEFAULT NULL,
   `TopographyDrainage` double DEFAULT NULL,
   `RiverManagement` int DEFAULT NULL,
@@ -91,8 +91,10 @@ CREATE TABLE `iot_data` (
   `InadequatePlanning` double DEFAULT NULL,
   `PoliticalFactors` int DEFAULT NULL,
   `FloodProbability` double DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-);
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ;
 
 
 ```
@@ -126,6 +128,8 @@ flood-guard/
 ├── data/
      ├── test.csv
      ├── train.csv
+├── model/
+     ├── LR_model.pkl
       
 ├── home_page.py
 ├── about_page.py
@@ -148,6 +152,9 @@ flood-guard/
 - Pandas
 - NumPy
 - Altair
+- scikit-learn
+- matplotlib
+- seaborn
 
 ## Contact
 For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].

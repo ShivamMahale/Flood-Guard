@@ -113,3 +113,14 @@ def get_geospatial_data():
             ]
         }
     return pd.DataFrame(data)
+
+def get_weather_data():
+
+    weather_data = [
+    {"date": "2024-06-24", "pressure": 1015, "temperature": 25, "pressure_low": 1010, "pressure_high": 1020, "temperature_low": 20, "temperature_high": 30, "unit": "hPa", "temp_unit": "°C"},
+    {"date": "2024-06-25", "pressure": 1017, "temperature": 26, "pressure_low": 1012, "pressure_high": 1022, "temperature_low": 21, "temperature_high": 31, "unit": "hPa", "temp_unit": "°C"},
+    {"date": "2024-06-26", "pressure": 1016, "temperature": 27, "pressure_low": 1011, "pressure_high": 1021, "temperature_low": 22, "temperature_high": 32, "unit": "hPa", "temp_unit": "°C"},
+    {"date": "2024-06-27", "pressure": 1018, "temperature": 28, "pressure_low": 1013, "pressure_high": 1023, "temperature_low": 23, "temperature_high": 33, "unit": "hPa", "temp_unit": "°C"},
+    {"date": "2024-06-28", "pressure": 1014, "temperature": 29, "pressure_low": 1009, "pressure_high": 1019, "temperature_low": 24, "temperature_high": 34, "unit": "hPa", "temp_unit": "°C"},
+]
+    return weather_data;

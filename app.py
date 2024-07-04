@@ -1,8 +1,6 @@
 import streamlit as st
 import db
 
-
-
 # Function to handle signup
 def signup():
     st.title("Welcome to FloodGuard")
@@ -36,8 +34,6 @@ def signup():
         else:
             st.warning('Invalid email Address')
         
-
-
 # Function to handle login
 def login():
     st.title("Welcome to FloodGuard")
