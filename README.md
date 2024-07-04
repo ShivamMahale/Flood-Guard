@@ -180,6 +180,12 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
 ![image](https://github.com/bachannayak/flood-guard/assets/76477737/3d2d4882-41c6-4612-95ba-225937533954)
 
+### Prediction Page
 
-#### Development of remaining pages is in progress............
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/d079153b-5bf3-402f-a476-4f535901a74a) 
+
+![image](https://github.com/bachannayak/flood-guard/assets/76477737/eefbbb42-69be-4993-8b42-5c20ffc34c1c)
+
+
+#### Development is in-progress............
 
