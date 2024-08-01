@@ -1,5 +1,18 @@
 import streamlit as st
 import db
+import page_wise_css as pwcss
+
+
+st.set_page_config(
+        page_title="FloodGuard: Flood Prediction and Early Warning System",
+        page_icon="🌊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+home_img = pwcss.get_img_as_base64("./images/cloud2.jpg")
+side_img = pwcss.get_img_as_base64("./images/cloud.jpg")
+sidebar_style=pwcss.get_sidebar_style(side_img)
+st.markdown(sidebar_style, unsafe_allow_html=True)
 
 # Function to handle signup
 def signup():
@@ -61,6 +74,8 @@ def logout():
 def render_page(page):
     if page == "Home":
         from home_page import home_page
+        pg_style=pwcss.get_page_style(home_img)
+        st.markdown(pg_style, unsafe_allow_html=True)
         home_page()
     elif page == "About":
         from about_page import about_page
@@ -74,12 +89,6 @@ def render_page(page):
 
 # Main application
 def main():
-    st.set_page_config(
-        page_title="FloodGuard: Flood Prediction and Early Warning System",
-        page_icon="🌊",
-        layout="wide",
-        initial_sidebar_state="expanded",
-    )
 
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
@@ -101,6 +110,8 @@ def main():
         render_page(page)
     else:
         st.sidebar.title("Account")
+        pg_style=pwcss.get_page_style(home_img)
+        st.markdown(pg_style, unsafe_allow_html=True)
         if st.sidebar.button("Signup", key="sidebar_signup"):
             st.session_state.signup = True
             st.session_state.logged_in = False
