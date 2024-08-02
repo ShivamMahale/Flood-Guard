@@ -161,13 +161,19 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
 ## Application Pages
 
+### Portal Entry
+![image](https://github.com/user-attachments/assets/c46ea08a-28ab-4fbc-8271-6af7adaf7b4b)
+
+
 ### Login Page
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/2a198f5c-a404-4b8c-856d-52b0c4e501ff)
+![image](https://github.com/user-attachments/assets/010ec2ab-30b8-4edd-a272-3d3d0b2cb131)
+
 
 ### Sign-Up Page
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/f4f80544-cfdd-4497-a955-1b0a3c277bfe)
+![image](https://github.com/user-attachments/assets/0b6c0f4b-8911-4ad0-8724-cb7f52a1801d)
+
 
 ### Home Page 
 
