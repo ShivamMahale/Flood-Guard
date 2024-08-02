@@ -167,12 +167,13 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
 ### Login Page
 
-![image](https://github.com/user-attachments/assets/010ec2ab-30b8-4edd-a272-3d3d0b2cb131)
+![Uploading image.png…]()
 
 
 ### Sign-Up Page
 
-![image](https://github.com/user-attachments/assets/0b6c0f4b-8911-4ad0-8724-cb7f52a1801d)
+![image](https://github.com/user-attachments/assets/8c8541ab-9c0e-4b1e-ac99-2ce0c0db47f9)
+
 
 
 ### Home Page 
