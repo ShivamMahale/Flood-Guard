@@ -2,7 +2,7 @@ streamlit==1.21.0
 mysql-connector-python==8.0.33
 pandas==1.5.3
 numpy==1.24.3
-altair==5.0.1
+altair
 pydeck==0.8.0
 matplotlib==3.4.3
 seaborn==0.11.2
@@ -10,4 +10,10 @@ scikit-learn
 plotly
 pillow
 secure-smtplib
+geopy
+openmeteo-requests
+requests-cache 
+retry-requests
+folium 
+streamlit-folium
 

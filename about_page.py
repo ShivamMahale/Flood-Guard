@@ -3,7 +3,7 @@ import streamlit as st
 def about_page():
     st.video("https://www.youtube.com/watch?v=HIFxkgfRy90")
     
-    st.write("""
+    st.markdown("""
     <style>
     .custom-text {
         font-size: 20px; /* Change this value to your desired font size */

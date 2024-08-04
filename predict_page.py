@@ -108,6 +108,7 @@ def create_rain_intensity_card(rain_info):
     st.plotly_chart(fig)
 
 # Placeholder function for the model prediction
+
 def predict_model(input_data):
     # Load the model from the file
     #filename = 'LR_model.pkl'
@@ -141,29 +142,7 @@ def predict_page():
         prediction_percent = prediction * 100
         if prediction>0.50:
             # sent alert to user
-            to_address = "bachannayak42@gmail.com"
-            subject = "Urgent: Flood Alert Notification"
-            body = f"""
-                    <html>
-                    <body>
-                        <h4>Dear Resident,</h4>
-                        <p>This is an automated alert to inform you of a potential flood risk in your area. Based on our latest analysis, there is a <strong>high probability</strong> of flooding.</p>
-                        <p><strong>Flood Probability: {prediction_percent:.2f}%</strong></p>
-                        <p>We strongly advise you to take the following precautions immediately:</p>
-                        <ul>
-                            <li>Move valuable items and important documents to higher ground.</li>
-                            <li>Prepare an emergency kit with essential items such as food, water, and medications.</li>
-                            <li>Stay tuned to local news and weather reports for updates.</li>
-                            <li>Follow any evacuation orders issued by local authorities.</li>
-                        </ul>
-                        <p>For more information and detailed guidance on flood preparedness, please visit our website or contact our support team.</p>
-                        <p>Stay safe,</p>
-                        <p>Flood Monitoring and Alert System</p>
-                    </body>
-                    </html>
-                    """
-            notification.send_email(to_address, subject, body)
-        
+            send_email(prediction_percent)
         st.write("## IOT data Prediction Result")
         st.write(f"The predicted flood probability is: {prediction_percent:.2f}%")
     predict_sidebar_page()
@@ -185,9 +164,6 @@ def predict_page():
     with col2:
         create_rain_intensity_card(latest_record)
 
-
-
-
 def predict_sidebar_page():
     st.sidebar.subheader("Select the input values from below (range 0 to 20):")
 
@@ -206,31 +182,36 @@ def predict_sidebar_page():
         prediction_percent = prediction * 100
         if prediction>0.50:
             # sent alert to user
-            to_address = "bachannayak42@gmail.com"
-            subject = "Urgent: Flood Alert Notification"
-            body = f"""
-                    <html>
-                    <body>
-                        <h4>Dear Resident,</h4>
-                        <p>This is an automated alert to inform you of a potential flood risk in your area. Based on our latest analysis, there is a <strong>high probability</strong> of flooding.</p>
-                        <p><strong>Flood Probability: {prediction_percent:.2f}%</strong></p>
-                        <p>We strongly advise you to take the following precautions immediately:</p>
-                        <ul>
-                            <li>Move valuable items and important documents to higher ground.</li>
-                            <li>Prepare an emergency kit with essential items such as food, water, and medications.</li>
-                            <li>Stay tuned to local news and weather reports for updates.</li>
-                            <li>Follow any evacuation orders issued by local authorities.</li>
-                        </ul>
-                        <p>For more information and detailed guidance on flood preparedness, please visit our website or contact our support team.</p>
-                        <p>Stay safe,</p>
-                        <p>Flood Monitoring and Alert System</p>
-                    </body>
-                    </html>
-                    """
-            notification.send_email(to_address, subject, body)
-        
+            send_email(prediction_percent)
         st.write("## User data Prediction Result")
         st.write(f"The predicted flood probability is: {prediction_percent:.2f}%")
+
+def send_email(prediction_percent):
+    to_address = "bachannayak42@gmail.com"
+    subject = "Urgent: Flood Alert Notification"
+    body = f"""
+            <html>
+            <body>
+                <h4>Dear Resident,</h4>
+                <p>This is an automated alert to inform you of a potential flood risk in your area. Based on our latest analysis, there is a <strong>high probability</strong> of flooding.</p>
+                <p><strong>Flood Probability: {prediction_percent:.2f}%</strong></p>
+                <p>We strongly advise you to take the following precautions immediately:</p>
+                <ul>
+                    <li>Move valuable items and important documents to higher ground.</li>
+                    <li>Prepare an emergency kit with essential items such as food, water, and medications.</li>
+                    <li>Stay tuned to local news and weather reports for updates.</li>
+                    <li>Follow any evacuation orders issued by local authorities.</li>
+                </ul>
+                <p>For more information and detailed guidance on flood preparedness, please visit our website or contact our support team.</p>
+                <p>Stay safe,</p>
+                <p>Flood Monitoring and Alert System</p>
+            </body>
+            </html>
+            """
+    notification.send_email(to_address, subject, body)
+    st.success(f"Email sent successfully to {to_address}")
+
+
 
 
     

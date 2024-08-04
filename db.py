@@ -51,6 +51,7 @@ def get_user(email):
     conn.close()
     return user
 
+
 def get_users():
     """Return a all user if exists, else None."""
     conn = get_db_connection()
@@ -80,6 +81,7 @@ def verify_password(stored_password, provided_password):
     return stored_password == hashlib.sha256(provided_password.encode()).hexdigest()
     
 # Function to fetch data from MySQL and convert to Pandas DataFrame
+
 def fetch_iot_output_data(query):
     connection = get_db_connection()
     if connection is not None and connection.is_connected():

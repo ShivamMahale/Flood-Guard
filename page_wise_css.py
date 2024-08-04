@@ -2,7 +2,7 @@ import streamlit as st
 import base64
 import plotly.express as px
 
-@st.cache_data
+
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
@@ -16,9 +16,8 @@ def get_sidebar_style(img):
     [data-testid="stSidebar"] > div:first-child {{
     background-image: url("data:image/png;base64,{img}");
     background-position: center; 
-    background-repeat: no-repeat;
     background-attachment: fixed;
-    width: 460px;  # Set the sidebar width
+    width: 400px;  # Set the sidebar width
     }}
 
     [data-testid="stSidebar"] * {{
@@ -38,7 +37,6 @@ def get_sidebar_style(img):
 
     return page_bg_img;
 
-
 def get_page_style(img):
     page_bg_img = f"""
     <style>
@@ -46,7 +44,6 @@ def get_page_style(img):
     background-image: url("data:image/png;base64,{img}");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     background-attachment: fixed;
 
     }}
