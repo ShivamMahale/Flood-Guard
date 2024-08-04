@@ -175,45 +175,53 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 ## Application Pages
 
 ### Portal Entry
-![image](https://github.com/user-attachments/assets/c46ea08a-28ab-4fbc-8271-6af7adaf7b4b)
+![image](https://github.com/user-attachments/assets/68b56f70-52fb-41a1-aea2-00c3ab40d9b5)
 
 
 ### Login Page
 
-![image](https://github.com/user-attachments/assets/2bbd9ca4-5668-4cc1-b902-2d09fc406cef)
-
+![image](https://github.com/user-attachments/assets/f5fa6d14-2349-47ed-a84f-fc3be0282cef)
 
 
 ### Sign-Up Page
-
-![image](https://github.com/user-attachments/assets/8c8541ab-9c0e-4b1e-ac99-2ce0c0db47f9)
-
+![image](https://github.com/user-attachments/assets/44e99d36-d01e-4611-9a66-5bb1185d9721)
 
 
-### Home Page 
+### Dashboard Page 
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/9142ea73-fb87-4e1e-b1a0-5e91943d3807)
+![image](https://github.com/user-attachments/assets/48d1e2c8-36b5-4c8e-9f25-d9ea6b554f43)
 
+![image](https://github.com/user-attachments/assets/57048c57-7571-48f4-806b-4412a4a8f466)
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/c3f9be52-25f0-4de6-8df6-27d29e3f7d80)
+![image](https://github.com/user-attachments/assets/d60124f9-11bd-4033-b58d-a712c1de86d0)
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/7ba9f11f-60cb-444d-8358-c3bca5310cd0)
+![image](https://github.com/user-attachments/assets/5caa5324-ea2a-446c-a053-78c7d2a343c6)
+
+### Weather Lens Page
+
+![image](https://github.com/user-attachments/assets/af82c271-684f-459e-9251-9deb9bd4639b)
+
+![image](https://github.com/user-attachments/assets/635ff1b3-d6e9-4324-a14a-23d0d7b41acb)
+
+![image](https://github.com/user-attachments/assets/93268d53-4610-4722-a620-40f248899532)
+
+![image](https://github.com/user-attachments/assets/a2e08d06-ae70-463c-87ab-133f247488c5)
+
 
 ### About Page 
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/c078cee1-6373-4b98-a20a-07dc1a525e2e)
-
-
-### Contact Page
-
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/3d2d4882-41c6-4612-95ba-225937533954)
+![image](https://github.com/user-attachments/assets/121bbacf-cc9b-4cbb-ac41-5a5e417c4580)
 
 ### Prediction Page
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/d079153b-5bf3-402f-a476-4f535901a74a) 
+![image](https://github.com/user-attachments/assets/1e717c8d-b897-4da5-a9bb-2c37b49c3460)
 
-![image](https://github.com/bachannayak/flood-guard/assets/76477737/eefbbb42-69be-4993-8b42-5c20ffc34c1c)
+![image](https://github.com/user-attachments/assets/ec27d771-a66c-42d2-8b2f-3beb7ba374b5)
+
+### Contact Page
+
+![image](https://github.com/user-attachments/assets/d8bb7ab4-78dc-4d89-846b-f8bd5ecaaaf8)
 
 
-#### Development is in-progress............
+#### Thanks for visit the page....................
 
