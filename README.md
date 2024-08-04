@@ -7,10 +7,12 @@ This application allows users to sign up, log in, logout,and access various page
 
 ## Features
 
+
 - User authentication (**Signup and Login**)
-- **Home**, **About**, **Predict** and **Contact** pages
+- **Dashboard**, **Weather Lens**,**About**, **Predict** and **Contact** pages
 - **Contact form** to collect user information
-- **Logout** 
+- **Logout**
+- **Notification** sent flood alert notification
 - Data storage using **MySQL**
 - Modern UI using **Streamlit**
 
@@ -130,19 +132,25 @@ flood-guard/
      ├── train.csv
 ├── model/
      ├── LR_model.pkl
-      
+├── images/
+     ├── cloud.jpg    
 ├── home_page.py
 ├── about_page.py
 ├── predict_page.py
 ├── app.py
 ├── db.py
 ├── contact_page.py
+├── notification.py
+├── forcast.py
 ├── requirements.txt
 └── README.md
 ```
 
+- **home_page.py:** It's a dashboard which contains IOT data visualization.
+- **forcast.py:** It's a weather forcasting page which has really time data visualization.
 - **contact_page.py:** Contains the contact page and database interaction logic.
 - **app.py:** Main application file that handles user authentication and page navigation.
+- **db.py:** It's database connection configuration and data access page
 + **requirements.txt:** List of required Python packages.
 * **README.md:** Project documentation.
 
@@ -155,6 +163,11 @@ flood-guard/
 - scikit-learn
 - matplotlib
 - seaborn
+- secure-smtplib
+- geopy
+- openmeteo-requests
+- requests-cache 
+- retry-requests
 
 ## Contact
 For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
