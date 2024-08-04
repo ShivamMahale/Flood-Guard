@@ -6,8 +6,8 @@ def send_email(to_address, subject, body):
     # SMTP server configuration
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    smtp_user = "bachannayak2501@gmail.com"
-    smtp_password = "gmwh xn"  # Use your Gmail App Password
+    smtp_user = "shivam.mahale9@gmail.com"
+    smtp_password = "ytrtu"  # Use your Gmail App Password
 
     # Create the email
     msg = MIMEMultipart()

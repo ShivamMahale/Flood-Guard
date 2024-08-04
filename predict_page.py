@@ -187,7 +187,7 @@ def predict_sidebar_page():
         st.write(f"The predicted flood probability is: {prediction_percent:.2f}%")
 
 def send_email(prediction_percent):
-    to_address = "bachannayak42@gmail.com"
+    to_address = "shivam.mahale9@gmail.com"
     subject = "Urgent: Flood Alert Notification"
     body = f"""
             <html>

@@ -14,6 +14,5 @@ geopy
 openmeteo-requests
 requests-cache 
 retry-requests
-folium 
-streamlit-folium
+
 
