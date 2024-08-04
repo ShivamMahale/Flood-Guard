@@ -218,6 +218,11 @@ For any inquiries or feedback, please contact us at [shivam.mahale9@gmail.com].
 
 ![image](https://github.com/user-attachments/assets/ec27d771-a66c-42d2-8b2f-3beb7ba374b5)
 
+#### Notification
+
+![image](https://github.com/user-attachments/assets/c09a7787-3bb0-44d8-b4e0-766d71637758)
+
+
 ### Contact Page
 
 ![image](https://github.com/user-attachments/assets/d8bb7ab4-78dc-4d89-846b-f8bd5ecaaaf8)
