@@ -1,7 +1,8 @@
 import streamlit as st
 import db
 import page_wise_css as pwcss
-
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="streamlit")
 
 st.set_page_config(
         page_title="FloodGuard: Flood Prediction and Early Warning System",
@@ -89,7 +90,7 @@ def display_vision_statement():
     """, unsafe_allow_html=True)
 
 # Function to handle signup
-@st.experimental_dialog("Welcome to FloodGuard ! Please Signup")
+@st.dialog("Welcome to FloodGuard ! Please Signup")
 def signup():
     st.markdown(dialog_style, unsafe_allow_html=True)
     st.markdown("""
@@ -119,7 +120,7 @@ def signup():
                             st.success("User registered successfully! Please login.")
                             st.session_state.signup = False
                             st.session_state.logged_in = False
-                            st.experimental_rerun()  # Force rerun
+                            st.rerun()  # Force rerun
                         else:
                             st.warning('Password should be at least 6 characters')
                     else:
@@ -130,7 +131,7 @@ def signup():
             st.warning('Invalid email Address')
         
 # Function to handle login
-@st.experimental_dialog("Welcome to FloodGuard ! Please Login")
+@st.dialog("Welcome to FloodGuard ! Please Login")
 def login():
     st.markdown(dialog_style, unsafe_allow_html=True)
     st.markdown("""
@@ -152,7 +153,7 @@ def login():
             st.session_state.logged_in = True
             st.session_state.username = user['username']
             st.success("Logged in successfully")
-            st.experimental_rerun()  # Force rerun
+            st.rerun()  # Force rerun
         else:
             st.error("Invalid username or password")
 
@@ -161,7 +162,7 @@ def logout():
     st.session_state.logged_in = False
     st.session_state.username = ""
     st.session_state.signup = False
-    st.experimental_rerun()  # Force rerun
+    st.rerun()  # Force rerun
 
 # Function to render page content based on selection
 def render_page(page):
@@ -210,11 +211,11 @@ def main():
         if st.sidebar.button("Signup", key="sidebar_signup"):
             st.session_state.signup = True
             st.session_state.logged_in = False
-            st.experimental_rerun()  # Force rerun
+            st.rerun()  # Force rerun
         if st.sidebar.button("Login", key="sidebar_login"):
             st.session_state.signup = False
             st.session_state.logged_in = False
-            st.experimental_rerun()  # Force rerun
+            st.rerun()  # Force rerun
 
         if st.session_state.signup:
             signup()

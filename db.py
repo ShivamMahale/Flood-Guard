@@ -10,7 +10,7 @@ import re
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'root',
+    'password': 'username',
     'database': 'flood_guard'
 }
 

@@ -4,8 +4,6 @@ import pandas as pd
 import plotly.express as px
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
-import folium
-from streamlit_folium import st_folium
 
 geolocator = Nominatim(user_agent="weather_app")
 
@@ -163,7 +161,7 @@ def forcast_page():
                     fig = px.line(hourly_dataframe, x='date', y=param, 
                                 title=f'Hourly {title} in {units[param]}',
                                 labels={param: f'{title} ({units[param]})'})
-                    fig.update_layout(title_font_size=18, title_font_color='darkblue', title_x=0.5, title_xanchor='center')
+                    fig.update_layout(title_font_size=18, title_font_color='white', title_x=0.5, title_xanchor='center')
                     fig.update_traces(line_color=color, line_width=2)
                     fig.update_layout(height=400)  # Set fixed height
                     cols[i % 3].plotly_chart(fig, use_container_width=True)
