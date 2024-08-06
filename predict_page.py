@@ -3,109 +3,9 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
-import plotly.graph_objs as go
-import plotly.express as px
 import db
 import notification
-# Sample data
-
-# Convert the data to a DataFrame
-weather_df = pd.DataFrame(db.get_weather_data())
-
-# Get the latest record
-latest_record = weather_df.iloc[-1]
-
-# Function to create a card for temperature
-def create_temperature_card(temperature_info):
-    st.subheader(f"Date: {temperature_info['date']}")
-    st.write(f"Temperature: {temperature_info['temperature']} {temperature_info['temp_unit']}")
-    st.write(f"Low: {temperature_info['temperature_low']} {temperature_info['temp_unit']}")
-    st.write(f"High: {temperature_info['temperature_high']} {temperature_info['temp_unit']}")
-
-    # Create a bar chart for temperature visualization with enhanced styling
-    temp_df = pd.DataFrame({
-        'Type': ['Current', 'Low', 'High'],
-        'Temperature': [temperature_info['temperature'], temperature_info['temperature_low'], temperature_info['temperature_high']]
-    })
-
-    fig = px.bar(temp_df, x='Type', y='Temperature', title="Temperature", color='Type', 
-                 color_discrete_map={'Current': 'royalblue', 'Low': 'lightblue', 'High': 'red'})
-    
-    fig.update_traces(marker_line_color='black', marker_line_width=1.5, opacity=0.6)
-    fig.update_layout(width=400, height=300, title_font_size=16, title_x=0.5, title_y=0.95)
-    fig.update_yaxes(title_text='Temperature (°C)')
-    fig.update_xaxes(title_text='')
-    
-    st.plotly_chart(fig)
-
-# Function to create a card for atmospheric pressure
-def create_pressure_card(pressure_info):
-    st.subheader(f"Date: {pressure_info['date']}")
-    st.write(f"Pressure: {pressure_info['pressure']} {pressure_info['unit']}")
-    st.write(f"Low: {pressure_info['pressure_low']} {pressure_info['unit']}")
-    st.write(f"High: {pressure_info['pressure_high']} {pressure_info['unit']}")
-    
-    # Create a plotly figure for visualization
-    fig = go.Figure(go.Indicator(
-        mode="gauge+number+delta",
-        value=pressure_info['pressure'],
-        title={'text': "Atmospheric Pressure"},
-        delta={'reference': pressure_info['pressure_low']},
-        gauge={
-            'axis': {'range': [pressure_info['pressure_low'] - 10, pressure_info['pressure_high'] + 10]},
-            'steps': [
-                {'range': [pressure_info['pressure_low'], pressure_info['pressure']], 'color': "lightgray"},
-                {'range': [pressure_info['pressure'], pressure_info['pressure_high']], 'color': "gray"}],
-            'threshold': {
-                'line': {'color': "red", 'width': 4},
-                'thickness': 0.75,
-                'value': pressure_info['pressure_high']}
-        }
-    ))
-    fig.update_layout(width=400, height=300)
-    st.plotly_chart(fig)
-
-# Function to create a card for humidity
-def create_humidity_card(humidity_info):
-    st.subheader(f"Date: {humidity_info['date']}")
-    st.write(f"Humidity: {humidity_info['humidity']} {humidity_info['humidity_unit']}")
-
-    # Create a bar chart for humidity visualization with enhanced styling
-    humidity_df = pd.DataFrame({
-        'Type': ['Current'],
-        'Humidity': [humidity_info['humidity']]
-    })
-
-    fig = px.bar(humidity_df, x='Type', y='Humidity', title="Humidity", color='Type', 
-                 color_discrete_map={'Current': 'green'})
-    
-    fig.update_traces(marker_line_color='black', marker_line_width=1.5, opacity=0.6)
-    fig.update_layout(width=400, height=300, title_font_size=16, title_x=0.5, title_y=0.95)
-    fig.update_yaxes(title_text='Humidity (%)')
-    fig.update_xaxes(title_text='')
-    
-    st.plotly_chart(fig)
-
-# Function to create a card for rain intensity
-def create_rain_intensity_card(rain_info):
-    st.subheader(f"Date: {rain_info['date']}")
-    st.write(f"Rain Intensity: {rain_info['rain_intensity']} {rain_info['rain_unit']}")
-
-    # Create a bar chart for rain intensity visualization with enhanced styling
-    rain_df = pd.DataFrame({
-        'Type': ['Current'],
-        'Rain Intensity': [rain_info['rain_intensity']]
-    })
-
-    fig = px.bar(rain_df, x='Type', y='Rain Intensity', title="Rain Intensity", color='Type', 
-                 color_discrete_map={'Current': 'blue'})
-    
-    fig.update_traces(marker_line_color='black', marker_line_width=1.5, opacity=0.6)
-    fig.update_layout(width=400, height=300, title_font_size=16, title_x=0.5, title_y=0.95)
-    fig.update_yaxes(title_text='Rain Intensity (mm/h)')
-    fig.update_xaxes(title_text='')
-    
-    st.plotly_chart(fig)
+from streamlit.components.v1 import html
 
 # Placeholder function for the model prediction
 
@@ -123,76 +23,156 @@ def predict_model(input_data):
     
 
 def predict_page():
-    st.title("Flood Prediction")
+    # CSS for styling
+    st.markdown("""
+        <style>
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sub-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .location-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .fetching-data {
+            font-size: 1rem;
+            text-align: center;
+            color: gray;
+            margin-bottom: 2rem;
+        }
+        .data-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .chart-container {
+            justify-content: space-between;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .chart {
+            width: 32%;
+            margin-right: 1%;
+        }
+        .chart:last-child {
+            margin-right: 0;
+        }
+        .background-image {
+            background-image: url('https://images.pexels.com/photos/6802042/pexels-photo-6802042.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+            padding: 11rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .centered-title {
+            text-align: center;
+        }
+        .stNumberInput input {
+        max-width: 100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .custom-form {
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+    .custom-form .stButton button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .custom-form .stButton button:hover {
+        background-color: #45a049;
+    }
+        </style>
+    """, unsafe_allow_html=True)
+    st.markdown('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">', unsafe_allow_html=True)
+    st.markdown('<h1 class="centered-title">Flood Probability Predictor <i class="fas fa-rocket"></i></h1>', unsafe_allow_html=True)
+    st.markdown('<div class="background-image">', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Enhance Preparedness with Precise Flood Risk Estimates</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Enter the location name to predict probability of flood by fetchning latest IOT Data</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    # Location input
+    st.markdown('<div class="location-input">', unsafe_allow_html=True)
+    location_name = st.text_input("Enter location (e.g., London, New York)")
+    st.markdown('</div>', unsafe_allow_html=True)
+    fetch_button = st.button("Fetch IOT Data",key="fetch")
+    if fetch_button and location_name:
+        st.session_state['iot_data_fetched'] = True
+    if 'iot_data_fetched' in st.session_state and st.session_state['iot_data_fetched']:
+        predict_iot_data()
 
-    st.subheader("Latest IOT Data")
-    # SQL query to fetch the first 10 records
-    query = "SELECT * FROM iot_data ORDER BY created_at DESC LIMIT 1"
-    iot_op_df = db.fetch_iot_output_data(query)
-    # Exclude a specific column from the DataFrame
-    columns_to_exclude = ['created_at', 'id','FloodProbability']
-    latest_iot_data = iot_op_df.drop(columns=columns_to_exclude)
-    if latest_iot_data is not None:
-        st.dataframe(latest_iot_data)
-    else:
-        st.error("Failed to fetch Daily Report data from database")
-    if st.button("Predict IOT Data"):
-        # Call the prediction function
-        prediction = predict_model(latest_iot_data)
-        prediction_percent = prediction * 100
-        if prediction>0.50:
-            # sent alert to user
-            send_email(prediction_percent)
-        st.write("## IOT data Prediction Result")
-        st.write(f"The predicted flood probability is: {prediction_percent:.2f}%")
-    predict_sidebar_page()
-    # Streamlit layout
-    # Display the latest record
-    col1, col2 = st.columns(2)
+    with st.expander("User Data Prediction", expanded=False):
+        predict_user_data()
 
-    with col1:
-        create_pressure_card(latest_record)
-
-    with col2:
-        create_temperature_card(latest_record)
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        create_humidity_card(latest_record)
-
-    with col2:
-        create_rain_intensity_card(latest_record)
-
-def predict_sidebar_page():
-    st.sidebar.subheader("Select the input values from below (range 0 to 20):")
-
-    # Define the input fields
+def predict_user_data():
     fields = ["MonsoonIntensity", "TopographyDrainage", "RiverManagement", "Deforestation", "Urbanization", "ClimateChange", "DamsQuality", "Siltation", "AgriculturalPractices", "Encroachments", "IneffectiveDisasterPreparedness", "DrainageSystems", "CoastalVulnerability", "Landslides", "Watersheds", "DeterioratingInfrastructure", "PopulationScore", "WetlandLoss", "InadequatePlanning", "PoliticalFactors"]
-    # Create input fields in the sidebar
-    input_values = []
-    for field in fields:
-        value = st.sidebar.slider(f"{field}", 0, 20, 5)
-        input_values.append(value)
-    # Convert the input values to a DataFrame
-    input_df = pd.DataFrame([input_values], columns=fields)
-    if st.sidebar.button("Predict User Data"):
-        # Call the prediction function
+
+    st.subheader("Provide the input values in range 0 to 20")
+
+    with st.form(key='user_data_form'):
+        input_values = []
+        for field in fields:
+            value = st.number_input(f"{field}", min_value=0, max_value=20, value=5)
+            input_values.append(value)
+        submit_button = st.form_submit_button(label='Predict User Data')
+
+    if submit_button:
+        input_df = pd.DataFrame([input_values], columns=fields)
         prediction = predict_model(input_values)
         prediction_percent = prediction * 100
-        if prediction>0.50:
-            # sent alert to user
+        
+        if prediction > 0.50:
             send_email(prediction_percent)
-        st.write("## User data Prediction Result")
-        st.write(f"The predicted flood probability is: {prediction_percent:.2f}%")
+        
+        display_prediction_card(prediction_percent, "User")
+def predict_iot_data():
+        # SQL query to fetch the first 10 records
+        query = "SELECT * FROM iot_data ORDER BY RAND() LIMIT 1"
+        iot_op_df = db.fetch_iot_output_data(query)
+        # Exclude a specific column from the DataFrame
+        columns_to_exclude = ['created_at', 'id','FloodProbability']
+        latest_iot_data = iot_op_df.drop(columns=columns_to_exclude)
+        if latest_iot_data is not None:
+            st.dataframe(latest_iot_data)
+        else:
+            st.error("Failed to fetch Daily Report data from database")
+        st.markdown('<div class="sub-title">Click on the prediction button to predict probability of flood for the below latest IOT Data</div>', unsafe_allow_html=True)
+        if st.button("Predict IOT Data",key="predict"):
+            # Call the prediction function
+            prediction = predict_model(latest_iot_data)
+            prediction_percent = prediction * 100
+            if prediction>0.50:
+                # sent alert to user
+                send_email(prediction_percent)
+            display_prediction_card(prediction_percent,"IOT")
 
 def send_email(prediction_percent):
-    to_address = "shivam.mahale9@gmail.com"
+    to_address = st.session_state.email_id
+    name = st.session_state.username
     subject = "Urgent: Flood Alert Notification"
     body = f"""
             <html>
             <body>
-                <h4>Dear Resident,</h4>
+                <h4>Dear {name},</h4>
                 <p>This is an automated alert to inform you of a potential flood risk in your area. Based on our latest analysis, there is a <strong>high probability</strong> of flooding.</p>
                 <p><strong>Flood Probability: {prediction_percent:.2f}%</strong></p>
                 <p>We strongly advise you to take the following precautions immediately:</p>
@@ -210,6 +190,24 @@ def send_email(prediction_percent):
             """
     notification.send_email(to_address, subject, body)
     st.success(f"Email sent successfully to {to_address}")
+
+
+def display_prediction_card(prediction_percent,type):
+    card_html = f"""
+    <div style="
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        text-align: center;
+        font-size: 20px;
+        ">
+        <h2>{type} Data Prediction Result</h2>
+        <p>The predicted flood probability is: <strong>{prediction_percent:.2f}%</strong></p>
+    </div>
+    """
+    html(card_html, height=200)
 
 
 

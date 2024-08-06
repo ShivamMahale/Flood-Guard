@@ -103,7 +103,7 @@ def signup():
         </div>
     """, unsafe_allow_html=True)
     email = st.text_input('Email', placeholder='Enter email')
-    username = st.text_input('Username', placeholder='Enter Username')
+    username = st.text_input('Name', placeholder='Enter your name')
     password = st.text_input("Password", placeholder='Enter password',type="password")
 
     if st.button("Signup", key="signup_button"):
@@ -152,6 +152,7 @@ def login():
         if user and db.verify_password(user['password'],password):
             st.session_state.logged_in = True
             st.session_state.username = user['username']
+            st.session_state.email_id = email
             st.success("Logged in successfully")
             st.rerun()  # Force rerun
         else:
@@ -166,7 +167,7 @@ def logout():
 
 # Function to render page content based on selection
 def render_page(page):
-    if page == "Dashboard":
+    if page == "IOT Data Status":
         from home_page import home_page
         home_page()
     elif page == "Weather Lens":
@@ -193,7 +194,7 @@ def main():
         # Sidebar navigation
         st.sidebar.title(f"Welcome, {st.session_state.username}!")
         
-        page = st.sidebar.radio("Menu", ["Dashboard", "Weather Lens","About", "Prediction","Contact"])
+        page = st.sidebar.radio("Menu", ["About","IOT Data Status", "Weather Lens", "Prediction","Contact"])
         
 
         # Logout button

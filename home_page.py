@@ -5,6 +5,8 @@ import pydeck as pdk
 import plotly.express as px
 import pandas as pd
 def home_page():
+    st.markdown('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">', unsafe_allow_html=True)
+
     # CSS for styling
     st.markdown("""
     <style>
@@ -21,10 +23,10 @@ def home_page():
             margin-bottom: 1.5rem;
         }
     .background-image {
-            background-image: url('https://images.pexels.com/photos/923927/pexels-photo-923927.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-image: url('https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=600');
             background-size: cover;
             background-position: center;
-            padding: 8rem;
+            padding: 15rem;
             margin-top: 1rem;
             margin-bottom: 2rem;
         }
@@ -33,14 +35,19 @@ def home_page():
         }
     </style>
 """, unsafe_allow_html=True)
-    st.markdown('<div class="main-title">Welcome to FloodGuard',unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">Your Comprehensive Flood Prediction and Early Warning System',unsafe_allow_html=True)
+    st.markdown("""
+    <div class="main-title">
+        IOT Data Dashboard <i class="fas fa-chart-line"></i>
+    </div>
+    <div class="sub-title">
+        Monitor and analyze real-time data trends with our intuitive dashboard.
+    </div>
+""", unsafe_allow_html=True)
+
     st.markdown('<div class="background-image">', unsafe_allow_html=True)
-    st.write('<p style="font-size: 20px; color: white; text-align: center; margin-bottom: 3rem;">FloodGuard is your ultimate solution for staying ahead of potential flood risks and ensuring the safety of your community.With advanced prediction algorithms and real-time monitoring capabilities, FloodGuard provides accurate forecasts and timely alerts to help you prepare and respond effectively to flood events.</p>', unsafe_allow_html=True)
-    
 
     # Section 2
-    with st.expander("IOT Data Visualization", expanded=True):
+    with st.expander("IOT Data Visualization", expanded=False):
 
         st.markdown('<div class="main-title">IOT Data Visualization</div>', unsafe_allow_html=True)
         # SQL query to fetch the first 10 records
@@ -101,7 +108,7 @@ def home_page():
             st.error("Failed to fetch Daily Report data from database")
 
     #Map Section
-    with st.expander("Weather Visualization on Global Map", expanded=True):
+    with st.expander("Weather Visualization on Global Map", expanded=False):
         st.subheader('Weather Visualization on Global Map')
         # Fetch geo spatial data
         df = db.get_geospatial_data()

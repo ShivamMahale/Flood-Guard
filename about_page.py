@@ -1,8 +1,74 @@
 import streamlit as st
 
 def about_page():
-    st.video("https://www.youtube.com/watch?v=HIFxkgfRy90")
-    
+    # CSS for styling
+    st.markdown("""
+        <style>
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .sub-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .location-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .fetching-data {
+            font-size: 1rem;
+            text-align: center;
+            color: gray;
+            margin-bottom: 2rem;
+        }
+        .data-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .chart-container {
+            justify-content: space-between;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .chart {
+            width: 32%;
+            margin-right: 1%;
+        }
+        .chart:last-child {
+            margin-right: 0;
+        }
+        .background-image {
+            background-image: url('https://images.pexels.com/photos/6802048/pexels-photo-6802048.jpeg?auto=compress&cs=tinysrgb&w=600');
+            background-size: cover;
+            background-position: center;
+            padding: 12rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .centered-title {
+            text-align: center;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<h1 class="centered-title">About FloodGuard 🌊</h1>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Your Comprehensive Flood Prediction and Early Warning System',unsafe_allow_html=True)
+    st.markdown('<div class="background-image">', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Explore global weather patterns and their impact on flood risks with our early warning FloodGuard portal.</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<hr>', unsafe_allow_html=True)
+
+    video_url = "https://www.youtube.com/embed/HIFxkgfRy90"
+
     st.markdown("""
     <style>
     .custom-text {
@@ -14,6 +80,27 @@ def about_page():
     FloodGuard is your ultimate solution for staying ahead of potential flood risks and ensuring the safety of your community. 
     With advanced prediction algorithms and real-time monitoring capabilities, FloodGuard provides accurate forecasts 
     and timely alerts to help you prepare and respond effectively to flood events.
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Define the custom HTML and CSS for embedding the video
+    video_html = f"""
+        <div style="display: flex; justify-content: center;">
+            <iframe width="1000" height="350" src="{video_url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    """
+    st.markdown("""<br></br>""",unsafe_allow_html=True)
+    # Display the video
+    st.markdown(video_html, unsafe_allow_html=True)
+    st.markdown("""<br></br>""",unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+    .custom-text {
+        font-size: 20px; /* Change this value to your desired font size */
+        color: white; /* Change this value to your desired text color */
+    }
+    </style>
+    <div class="custom-text">
 
     <b>Key Features:</b>
 

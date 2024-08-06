@@ -39,6 +39,7 @@ def fetch_weather_data(latitude, longitude):
     return response.json()
 
 def forcast_page():
+    st.markdown('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">', unsafe_allow_html=True)
 
     # CSS for styling
     st.markdown("""
@@ -98,7 +99,7 @@ def forcast_page():
         }
         </style>
     """, unsafe_allow_html=True)
-    st.markdown('<h1 class="centered-title">Weather Lens</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="centered-title">Weather Lens <i class="fas fa-eye"></i></h1>', unsafe_allow_html=True)
     st.markdown('<div class="background-image">', unsafe_allow_html=True)
     st.markdown('<div class="main-title">User can uncover global weather trends with a tap.</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Select a location to visualize its hourly forecasted weather data.</div>', unsafe_allow_html=True)
