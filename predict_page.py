@@ -6,6 +6,16 @@ import os
 import db
 import notification
 from streamlit.components.v1 import html
+import forcast as fc
+import plotly.express as px
+
+# Function to fetch coordinates and weather data
+def fetch_coordinates_and_weather(location_name):
+    latitude, longitude = fc.get_coordinates(location_name)
+    if latitude and longitude:
+        weather_data = fc.fetch_weather_data(latitude, longitude)
+        return weather_data
+    return None
 
 # Placeholder function for the model prediction
 
@@ -116,9 +126,35 @@ def predict_page():
     st.markdown('</div>', unsafe_allow_html=True)
     fetch_button = st.button("Fetch IOT Data",key="fetch")
     if fetch_button and location_name:
-        st.session_state['iot_data_fetched'] = True
-    if 'iot_data_fetched' in st.session_state and st.session_state['iot_data_fetched']:
-        predict_iot_data()
+         weather_data = fetch_coordinates_and_weather(location_name)
+         if weather_data:
+            st.session_state['weather_data'] = weather_data
+            st.session_state['location_name'] = location_name
+            st.session_state['iot_data_fetched'] = True
+         if 'iot_data_fetched' in st.session_state and st.session_state['iot_data_fetched']:
+            display_current_weather_card(st.session_state['weather_data'], st.session_state['location_name'])
+            # SQL query to fetch the first 10 records
+            query = "SELECT * FROM iot_data ORDER BY RAND() LIMIT 1"
+            iot_op_df = db.fetch_iot_output_data(query)
+            # Exclude a specific column from the DataFrame
+            columns_to_exclude = ['created_at', 'id','FloodProbability']
+            latest_iot_data = iot_op_df.drop(columns=columns_to_exclude)
+            if latest_iot_data is not None:
+                st.markdown(f'<div class="data-title">Latest IOT Data for {location_name}</div>', unsafe_allow_html=True)
+                st.dataframe(latest_iot_data)
+                st.markdown('<div class="sub-title">Click on the prediction button to predict probability of flood for the above latest IOT Data</div>', unsafe_allow_html=True)
+                # Call the prediction function
+                predict_iot_button = st.button("Predict IOT Data",key="predictiotdata")
+                if predict_iot_button:
+                    prediction = predict_model(latest_iot_data)
+                    prediction_percent = prediction * 100
+                    if prediction>0.50:
+                        # sent alert to user
+                        send_email(prediction_percent)
+                    display_prediction_card(prediction_percent,"IOT")
+            else:
+                st.error("Failed to fetch Daily Report data from database")
+        
 
     with st.expander("User Data Prediction", expanded=False):
         predict_user_data()
@@ -144,26 +180,8 @@ def predict_user_data():
             send_email(prediction_percent)
         
         display_prediction_card(prediction_percent, "User")
-def predict_iot_data():
-        # SQL query to fetch the first 10 records
-        query = "SELECT * FROM iot_data ORDER BY RAND() LIMIT 1"
-        iot_op_df = db.fetch_iot_output_data(query)
-        # Exclude a specific column from the DataFrame
-        columns_to_exclude = ['created_at', 'id','FloodProbability']
-        latest_iot_data = iot_op_df.drop(columns=columns_to_exclude)
-        if latest_iot_data is not None:
-            st.dataframe(latest_iot_data)
-        else:
-            st.error("Failed to fetch Daily Report data from database")
-        st.markdown('<div class="sub-title">Click on the prediction button to predict probability of flood for the below latest IOT Data</div>', unsafe_allow_html=True)
-        if st.button("Predict IOT Data",key="predict"):
-            # Call the prediction function
-            prediction = predict_model(latest_iot_data)
-            prediction_percent = prediction * 100
-            if prediction>0.50:
-                # sent alert to user
-                send_email(prediction_percent)
-            display_prediction_card(prediction_percent,"IOT")
+
+            
 
 def send_email(prediction_percent):
     to_address = st.session_state.email_id
@@ -209,6 +227,64 @@ def display_prediction_card(prediction_percent,type):
     """
     html(card_html, height=200)
 
+def display_current_weather_card(weather_data,location_name):
+            # Process the data
+            hourly = weather_data['hourly']
+            hourly_time = hourly['time']
+            
+            # Extract units
+            units = weather_data['hourly_units']
+
+            # Create DataFrame
+            hourly_data = {"date": pd.to_datetime(hourly_time, utc=True)}
+            for key in units.keys():
+                hourly_data[key] = hourly[key]
+
+            hourly_dataframe = pd.DataFrame(data=hourly_data)
+            # Convert to daily data by taking mean of each day
+            hourly_dataframe['day'] = hourly_dataframe['date'].dt.date
+            daily_dataframe = hourly_dataframe.groupby('day').mean(numeric_only=True).reset_index()
+
+            # Get the current day's data
+            current_day_data = daily_dataframe.iloc[0]
+        
+
+            st.markdown(f'<div class="data-title">Todays Average Weather Data for {location_name}</div>', unsafe_allow_html=True)
+            # Define parameters to display with corresponding icons and colors
+            params_to_display = [
+                ("temperature_2m", "Temperature", "fas fa-thermometer-half", "rgba(255, 99, 71, 0.5)"),
+                ("relative_humidity_2m", "Relative Humidity", "fas fa-tint", "rgba(135, 206, 235, 0.5)"),
+                ("precipitation", "Precipitation", "fas fa-cloud-rain", "rgba(173, 216, 230, 0.5)"),
+                ("rain", "Rain", "fas fa-cloud-showers-heavy", "rgba(0, 191, 255, 0.5)"),
+                ("wind_speed_10m", "Wind Speed (10m)", "fas fa-wind", "rgba(176, 224, 230, 0.5)"),
+                ("pressure_msl", "Pressure (MSL)", "fas fa-tachometer-alt", "rgba(255, 228, 181, 0.5)")
+            ]
+            # Create a 3-column layout
+            cols = st.columns(3)
+            for i, (param, title, icon_class, bg_color) in enumerate(params_to_display):
+                if param in current_day_data.index:
+                    unit = units.get(param, '')  # Get the unit for the current parameter
+                    card_html = f"""
+                    <div style="
+                        background-color: {bg_color};
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        margin-top: 20px;
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    ">
+                        <i class="{icon_class}" style="font-size: 50px;"></i>
+                        <h4>{title}</h4>
+                        <p><strong>{current_day_data[param]} {unit}</strong></p>
+                    </div>
+                    """
+                    cols[i % 3].markdown(card_html, unsafe_allow_html=True)
+
+
+    
 
 
 
