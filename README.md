@@ -38,7 +38,7 @@ python --version
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/bachannayak/flood-guard.git
+git clone https://github.com/ShivamMahale/Flood-Guard.git
 cd flood-guard
 ```
 ### Install Dependencies
